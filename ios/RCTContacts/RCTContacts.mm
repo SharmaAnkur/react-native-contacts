@@ -66,7 +66,7 @@ RCT_EXPORT_METHOD(checkPermission:(RCTPromiseResolveBlock) resolve
     } else if (authStatus == CNAuthorizationStatusAuthorized){
         resolve(@"authorized");
     } else if(@available(iOS 18, *)) {
-        if (authStatus == CNAuthorizationStatusLimited) {
+        if (authStatus == PHAuthorizationStatusLimited) {
             resolve(@"limited");
         }
     } else {
@@ -577,7 +577,7 @@ RCT_EXPORT_METHOD(getPhotoForId:(nonnull NSString *)recordID resolver:(RCTPromis
     }
     else if(@available(iOS 18, *))
     {
-        if([CNContactStore authorizationStatusForEntityType:entityType] == CNAuthorizationStatusLimited)
+        if([CNContactStore authorizationStatusForEntityType:entityType] == PHAuthorizationStatusLimited)
         {
             resolve([self getFilePathForThumbnailImage:recordID addressBook:contactStore]);
         }
@@ -622,7 +622,7 @@ RCT_EXPORT_METHOD(getContactById:(nonnull NSString *)recordID resolver:(RCTPromi
     }
     else if(@available(iOS 18, *))
     {
-        if([CNContactStore authorizationStatusForEntityType:entityType] == CNAuthorizationStatusLimited)
+        if([CNContactStore authorizationStatusForEntityType:entityType] == PHAuthorizationStatusLimited)
         {
             resolve([self getContact:recordID addressBook:contactStore withThumbnails:false]);
         }
@@ -1500,7 +1500,7 @@ RCT_EXPORT_METHOD(addContactsToGroup:(NSString *)groupId
     
     // Check authorization
     CNAuthorizationStatus authStatus = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
-    if (authStatus != CNAuthorizationStatusAuthorized && authStatus != CNAuthorizationStatusLimited) {
+    if (authStatus != CNAuthorizationStatusAuthorized && authStatus != PHAuthorizationStatusLimited) {
         reject(@"permission_denied", @"Contacts permission denied", nil);
         return;
     }
@@ -1568,7 +1568,7 @@ RCT_EXPORT_METHOD(removeContactsFromGroup:(NSString *)groupId
 
     // Check authorization status
     CNAuthorizationStatus authStatus = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
-    if (authStatus != CNAuthorizationStatusAuthorized && authStatus != CNAuthorizationStatusLimited) {
+    if (authStatus != CNAuthorizationStatusAuthorized && authStatus != PHAuthorizationStatusLimited) {
         reject(@"permission_denied", @"Contacts permission denied", nil);
         return;
     }
@@ -1668,7 +1668,7 @@ RCT_EXPORT_METHOD(removeContactsFromGroup:(NSString *)groupId
      } else if (authStatus == CNAuthorizationStatusAuthorized){
          resolve(@"authorized");
      } else if(@available(iOS 18, *)) {
-         if (authStatus == CNAuthorizationStatusLimited) {
+         if (authStatus == PHAuthorizationStatusLimited) {
              resolve(@"limited");
          }
      } else {
@@ -1827,7 +1827,7 @@ RCT_EXPORT_METHOD(removeContactsFromGroup:(NSString *)groupId
      }
      else if(@available(iOS 18, *))
      {
-        if([CNContactStore authorizationStatusForEntityType:entityType] == CNAuthorizationStatusLimited)
+        if([CNContactStore authorizationStatusForEntityType:entityType] == PHAuthorizationStatusLimited)
         {
             resolve([self getContact:recordID addressBook:contactStore withThumbnails:false]);
         }
@@ -1884,7 +1884,7 @@ RCT_EXPORT_METHOD(removeContactsFromGroup:(NSString *)groupId
         }
         else if(@available(iOS 18, *))
         {
-            if([CNContactStore authorizationStatusForEntityType:entityType] == CNAuthorizationStatusLimited)
+            if([CNContactStore authorizationStatusForEntityType:entityType] == PHAuthorizationStatusLimited)
             {
                 resolve([self getFilePathForThumbnailImage:recordID addressBook:contactStore]);
             }
